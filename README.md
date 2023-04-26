@@ -1,5 +1,5 @@
 <div id="header" align="center">
-	<img src="https://i.postimg.cc/ZK620xvn/github.png" >
+	<img src='https://i.postimg.cc/xTKm7chB/github.png' alt='github'/>
 	<h1 align="center">Hola👋, Soy Johan</h1>
 	<h3 align="center">
 		👨‍💻 Desarrollador Full Stack MERN | 🚀 Apasionado por las metodologías ágiles | 🌟 Siempre aprendiendo para estar al día con las últimas tendencias tecnológicas.
