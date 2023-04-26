@@ -1,12 +1,12 @@
 <div id="header" align="center">
-	<img src="" width="200">
+	<img src="https://i.postimg.cc/ZK620xvn/github.png" >
 	<h1 align="center">Hola👋, Soy Johan</h1>
 	<h3 align="center">
 		👨‍💻 Desarrollador Full Stack MERN | 🚀 Apasionado por las metodologías ágiles | 🌟 Siempre aprendiendo para estar al día con las últimas tendencias tecnológicas.
 	</h3>
 </div>
 
-<div id="badges" align="center">
+<!-- <div id="badges" align="center">
 	<a href="https://www.twitch.tv/queso1611" target="_blank">
 		<img src="https://img.shields.io/twitch/status/queso1611?color=purple&logo=twitch&style=for-the-badge" alt="twitch badge" />
 	</a>
@@ -16,7 +16,7 @@
   <a href="https://www.twitch.tv/queso1611" target="_blank">
 		<img src="https://img.shields.io/twitch/status/queso1611?color=purple&logo=twitch&style=for-the-badge" alt="twitch badge" />
 	</a>
-</div>
+</div> -->
 
 ---
 
@@ -46,6 +46,6 @@
 
 [![GitHub Streak](http://github-readme-streak-stats.herokuapp.com?user=JohanZ1611&theme=react&hide_border=true&locale=es&card_width=494)](https://git.io/streak-stats)
 
-[![JohanZ1611 GitHub stats-Light](https://github-readme-stats.vercel.app/api?username=JohanZ1611&show_icons=true&theme=default#gh-light-mode-only)](https://github.com/anuraghazra/github-readme-stats#gh-light-mode-only)
+![JohanZ1611 GitHub stats](https://github-readme-stats.vercel.app/api?username=JohanZ1611&show_icons=true&theme=default#gh-light-mode-only)
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JohanZ1611&langs_count=8)](https://github.com/anuraghazra/github-readme-stats)
