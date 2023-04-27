@@ -24,7 +24,7 @@
 
 - 🗨️ Pregúntame sobre **React, React js, Redux, Node js, MongoDB, Express**
 - 📫 ¿Cómo llegar a mí **johan16zulu@gmail.com**
-<!-- - I´m currently learning **  ** -->
+- 📔 Actualmente estoy aprendiendo **Three.js, Blender, Figma, Ingles**
 <!-- - website .... -->
 <div align="left">
 	<h3>🛠️ Lenguajes y herramientas:</h3>
