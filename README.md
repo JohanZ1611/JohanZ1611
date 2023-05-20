@@ -24,7 +24,7 @@
 
 - 🗨️ Pregúntame sobre **React, React js, Redux, Node js, MongoDB, Express**
 - 📫 ¿Cómo llegar a mí **johan16zulu@gmail.com**
-- 📔 Actualmente estoy aprendiendo **Three.js, Blender, Figma, Ingles**
+- 📔 Actualmente estoy aprendiendo **spline 3D, Blender, Figma, Ingles**
 - 🌐 website **https://johanzuluaga-portfolio.vercel.app/** en proceso!
 <div align="left">
 	<h3>🛠️ Lenguajes y herramientas:</h3>
