@@ -20,24 +20,21 @@
 
 ---
 
-### 👨‍💻 Acerca de mí : 
+<div align="center">
+<h2>👨‍💻 Acerca de mí</h2>
+	<p>- 🗨️ Pregúntame sobre **React, React js, Redux, Node js, MongoDB, Express**</p>
+	<p>- 📫 ¿Cómo llegar a mí **johan16zulu@gmail.com**</p>
+	<p>- 📔 Actualmente estoy aprendiendo **spline 3D, Blender, Ingles**</p>
+	<!-- 🌐 website **https://johanzuluaga-portfolio.vercel.app/** en proceso!-->
+</div>
 
-- 🗨️ Pregúntame sobre **React, React js, Redux, Node js, MongoDB, Express**
-- 📫 ¿Cómo llegar a mí **johan16zulu@gmail.com**
-- 📔 Actualmente estoy aprendiendo **spline 3D, Blender, Figma, Ingles**
-<!-- 🌐 website **https://johanzuluaga-portfolio.vercel.app/** en proceso!-->
 <div align="left">
 	<p align="left">🛠️ Lenguajes y herramientas:</p>
-
-###
 <div align="center">
     <img src="https://skillicons.dev/icons?i=react,bootstrap,mui,html,css,vscode,github,figma,tailwind,git,redux" />
     <img src="https://skillicons.dev/icons?i=nodejs,python,javascript,typescript,express,firebase,mongodb,java,nextjs,mysql,postman,figma" /><br>
 </div>
-###
 
----
-### 
 <div align="center">
 <h2>🧮 Mis Estadísticas</h2>
 	
@@ -46,8 +43,6 @@
   <img src="https://streak-stats.demolab.com?user=JohanZ1611&locale=en&mode=daily&theme=dark&hide_border=false&border_radius=5&order=3" height="150" alt="streak graph"  />
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=JohanZ1611&radius=16&theme=material&area=true&order=5" height="300" alt="activity-graph graph"  />
 </div>
-
-###
 
 <div align="center">
   <h2>🐍 My Contributions 🐍</h2>
