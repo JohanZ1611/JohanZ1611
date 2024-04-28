@@ -47,7 +47,7 @@
 </div>
 
 <div align="center">
-  <h2>🐍 My Contributions 🐍</h2>
+  <h2>🐍 Mis Contribuciones 🐍</h2>
   <br>
   <img src="https://raw.githubusercontent.com/JohanZ1611/JohanZ1611/output/snake.svg" alt="Snake animation" />
   
