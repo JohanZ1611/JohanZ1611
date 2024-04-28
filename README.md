@@ -19,13 +19,15 @@
 </div> -->
 
 ---
-
 <div align="center">
 <h2>👨‍💻 Acerca de mí</h2>
-	<p>- 🗨️ Pregúntame sobre **React, React js, Redux, Node js, MongoDB, Express**</p>
-	<p>- 📫 ¿Cómo llegar a mí **johan16zulu@gmail.com**</p>
-	<p>- 📔 Actualmente estoy aprendiendo **spline 3D, Blender, Ingles**</p>
-	<!-- 🌐 website **https://johanzuluaga-portfolio.vercel.app/** en proceso!-->
+</div>
+ 
+<div style="text-align: center;" >
+  <p style="text-align: right;">- 🗨️ Pregúntame sobre <strong>React, React js, Redux, Node js, MongoDB, Express</strong></p>
+  <p style="text-align: right;">- 📫 ¿Cómo llegar a mí <strong>johan16zulu@gmail.com</strong></p>
+  <p style="text-align: right;">- 📔 Actualmente estoy aprendiendo <strong>spline 3D, Blender, Ingles</strong></p>
+  <!-- 🌐 website **https://johanzuluaga-portfolio.vercel.app/** en proceso!-->
 </div>
 
 <div align="left">
