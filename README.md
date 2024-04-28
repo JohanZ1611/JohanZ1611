@@ -26,7 +26,7 @@
 <div style="text-align: center;" >
   <p style="text-align: right;">- 🗨️ Pregúntame sobre <strong>React, React js, Redux, Node js, MongoDB, Express</strong></p>
   <p style="text-align: right;">- 📫 ¿Cómo llegar a mí <strong>johan16zulu@gmail.com</strong></p>
-  <p style="text-align: right;">- 📔 Actualmente estoy aprendiendo <strong>spline 3D, Blender, Ingles</strong></p>
+  <p style="text-align: right;">- 📔 Actualmente estoy aprendiendo <strong>spline 3D, Blender, Inglés</strong></p>
   <!-- 🌐 website **https://johanzuluaga-portfolio.vercel.app/** en proceso!-->
 </div>
 
