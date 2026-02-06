@@ -26,14 +26,14 @@
 <div style="text-align: center;" >
   <p style="text-align: right;">- 🗨️ Pregúntame sobre <strong>React, React js, Redux, Node js, MongoDB, Express</strong></p>
   <p style="text-align: right;">- 📫 ¿Cómo llegar a mí <strong>johan16zulu@gmail.com</strong></p>
-  <p style="text-align: right;">- 📔 Actualmente estoy aprendiendo <strong>spline 3D, Blender, Inglés</strong></p>
+  <p style="text-align: right;">- 📔 Actualmente estoy aprendiendo <strong>spline 3D, Blender, Inglés, Desarrollo de Videojuegos y Entornos Interactivos</strong></p>
   <!-- 🌐 website **https://johanzuluaga-portfolio.vercel.app/** en proceso!-->
 </div>
 
 <div align="left">
 	<p align="left">🛠️ Lenguajes y herramientas:</p>
 <div align="center">
-    <img src="https://skillicons.dev/icons?i=react,bootstrap,mui,html,css,vscode,github,figma,tailwind,git,redux" />
+    <img src="https://skillicons.dev/icons?i=react,bootstrap,mui,html,css,vscode,github,figma,tailwind,git,redux,bruno" />
     <img src="https://skillicons.dev/icons?i=nodejs,python,javascript,typescript,express,firebase,mongodb,java,nextjs,mysql,postman,figma" /><br>
 </div>
 
