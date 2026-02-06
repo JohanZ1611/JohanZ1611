@@ -33,7 +33,7 @@
 <div align="left">
 	<p align="left">🛠️ Lenguajes y herramientas:</p>
 <div align="center">
-    <img src="https://skillicons.dev/icons?i=react,bootstrap,mui,html,css,vscode,github,figma,tailwind,git,redux,bruno" />
+    <img src="https://skillicons.dev/icons?i=react,bootstrap,mui,html,css,vscode,github,figma,tailwind,git,redux,bun" />
     <img src="https://skillicons.dev/icons?i=nodejs,python,javascript,typescript,express,firebase,mongodb,java,nextjs,mysql,postman,figma" /><br>
 </div>
 
