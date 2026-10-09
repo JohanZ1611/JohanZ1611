@@ -10,7 +10,7 @@ Run from the repository root:
 VISUAL.MAP loops: image -> each logo in LOGOS (assets/source/logos/<name>.png,
 black silhouette on transparent) -> image. Missing logo files are skipped.
 
-Writes (dark + light each): banner-*.v9.svg, whoami-*.svg, radar-*.svg, radar-langs-*.svg
+Writes (dark + light each): banner-*.v<N>.svg, whoami-*.svg, radar-*.svg, radar-langs-*.svg
 Texts live in PROFILE, SKILLS, LANGS and whoami(); radar values are self-rated 0-100.
 """
 
@@ -26,6 +26,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageOps
 
 ROOT = Path(__file__).resolve().parents[1]
+BANNER_VERSION = 10  # bump after changing the banner so caches fetch the new file
 ASSETS = ROOT / "assets"
 SEED = 1611
 MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
@@ -39,38 +40,38 @@ TRAVELLERS = 600
 PROFILE = [
     (0, "profile", ""),
     (1, "subject", "Johan Zuluaga"),
-    (1, "role", "Full-Stack Developer"),
+    (1, "role", "Backend & Data Developer (AWS)"),
     (1, "origin", "San Luis, Antioquia, Colombia"),
-    (1, "focus", "APIs · Apps móviles · Web"),
-    (1, "status", "De la idea al deploy"),
-    (1, "toolchain", "Astro · React Native · FastAPI"),
+    (1, "focus", "Pipelines de datos · Serverless · Scraping"),
+    (1, "status", "Full Stack MERN certificado"),
+    (1, "learning", "AWS Certified Data Engineer"),
     (0, "stack", ""),
-    (1, "frontend", "Astro · React · TypeScript · Tailwind"),
-    (1, "backend", "Python · FastAPI · Prisma"),
-    (1, "mobile", "Expo · React Native · Kotlin"),
-    (1, "data", "PostgreSQL · Supabase"),
-    (1, "infra", "Docker · Cloudflare · Homelab"),
+    (1, "aws", "Lambda · S3 · SQS · EventBridge · ECR"),
+    (1, "backend", "Python · Node.js · Express · FastAPI"),
+    (1, "data", "MySQL (RDS) · PostgreSQL · MongoDB"),
+    (1, "frontend", "React · React Native · Astro"),
+    (1, "automation", "Puppeteer · ETL · Gemini · OCR"),
     (0, "contact", ""),
     (1, "linkedin", "/in/johan-zuluaga-870343257"),
     (1, "github", "JohanZ1611"),
     (1, "email", "johan16zulu@gmail.com"),
 ]
 
-SKILLS = ("Full-Stack Skill Radar", [
-    ("Frontend (Astro/React)", 88),
+SKILLS = ("Backend & Data Skill Radar", [
+    ("AWS Serverless", 85),
+    ("Pipelines & ETL", 85),
+    ("Web Scraping", 90),
     ("Backend & APIs", 85),
-    ("Mobile (Expo/RN)", 78),
-    ("Bases de datos", 80),
-    ("DevOps & Docker", 70),
-    ("UI / Motion", 75),
+    ("Frontend & Mobile", 78),
+    ("IA (Gemini / LLMs)", 72),
 ])
 
 LANGS = ("Language Stack", [
-    ("TypeScript", 88),
-    ("JavaScript", 90),
-    ("Python", 82),
-    ("SQL", 75),
-    ("Kotlin", 50),
+    ("Python", 90),
+    ("JavaScript", 88),
+    ("TypeScript", 82),
+    ("SQL", 80),
+    ("Kotlin", 45),
 ])
 
 # Blue / sky palette only.
@@ -225,7 +226,7 @@ def banner(theme: str, dots: np.ndarray, logos: list[np.ndarray]) -> str:
     p = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="610" viewBox="0 0 1180 610" '
         'role="img" aria-labelledby="title desc">',
-        '<title id="title">Johan Zuluaga — Full-Stack Developer</title>',
+        '<title id="title">Johan Zuluaga — Backend &amp; Data Developer</title>',
         '<desc id="desc">Animated vim-style terminal with a dithered visual map and a YAML profile.</desc>',
         '<defs><filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">'
         f'<feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="{t["shadow"]}" flood-opacity=".28"/></filter>'
@@ -343,7 +344,7 @@ def whoami(theme: str) -> str:
 
     return "".join([
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 390" width="960" height="390" role="img" '
-        'aria-labelledby="title desc"><title id="title">Johan Zuluaga — Full-Stack Developer</title>'
+        'aria-labelledby="title desc"><title id="title">Johan Zuluaga — Backend &amp; Data Developer</title>'
         '<desc id="desc">Terminal-style profile card: mission and areas of expertise.</desc>',
         f'<defs><linearGradient id="sky" x1="0" x2="1" y1="0" y2="1"><stop stop-color="{t["dots"]}"/>'
         f'<stop offset="1" stop-color="{t["chrome"]}"/></linearGradient>'
@@ -358,16 +359,16 @@ def whoami(theme: str) -> str:
         f'<rect x="29" y="78" width="594" height="271" rx="9" fill="{inner}" stroke="{t["dots"]}" stroke-width="1.5"/>',
         T(48, 111, "❯ whoami", t["accent"], 20, True),
         T(48, 143, "johan_zuluaga", soft, 18), T(196, 143, "—", t["muted"], 18),
-        T(221, 143, "Full-Stack Developer", t["warm"], 18),
+        T(221, 143, "Backend & Data Developer", t["warm"], 18),
         f'<path d="M48 166H604" stroke="{t["line"]}"/>',
         T(48, 196, "context:", t["muted"]), T(166, 196, "San Luis, Antioquia · Colombia", t["dots"]),
-        T(48, 225, "mission:", t["muted"]), T(166, 225, "software que funcione desde el día uno", t["chrome"]),
+        T(48, 225, "mission:", t["muted"]), T(166, 225, "datos confiables, de la fuente al dashboard", t["chrome"]),
         T(48, 267, "❯ ls expertise/", t["accent"], 20, True),
-        T(48, 299, "web/", t["dots"], 16), T(190, 299, "Astro · React · TypeScript · Tailwind", soft, 16),
-        T(48, 326, "api+mobile/", t["dots"], 16), T(190, 326, "FastAPI · Prisma · Expo · React Native", soft, 16),
+        T(48, 299, "data+cloud/", t["dots"], 16), T(190, 299, "AWS Serverless · ETL · Scraping · Python", soft, 16),
+        T(48, 326, "fullstack/", t["dots"], 16), T(190, 326, "MERN · React Native · Astro · Gemini", soft, 16),
         # right panel: night-sky runtime (blue moon over waves)
         f'<rect x="651" y="78" width="280" height="271" rx="9" fill="{inner}" stroke="{t["dots"]}" stroke-width="1.5"/>',
-        T(674, 111, "homelab runtime", t["warm"]),
+        T(674, 111, "serverless runtime", t["warm"]),
         f'<circle cx="791" cy="203" r="56" fill="{t["dots"]}" opacity=".95"/>',
         f'<path d="M674 202H908M674 216H908M674 230H908M674 244H908M674 258H908" stroke="{inner}" stroke-width="5" opacity=".9"/>',
         f'<path d="M674 277C711 247 746 303 785 272S861 249 908 281" fill="none" stroke="{t["chrome"]}" stroke-width="3" filter="url(#glow)"/>',
@@ -456,7 +457,7 @@ def main() -> None:
     ASSETS.mkdir(exist_ok=True)
     for theme in THEMES:
         out = {
-            f"banner-{theme}.v9.svg": banner(theme, dots[theme], logos),
+            f"banner-{theme}.v{BANNER_VERSION}.svg": banner(theme, dots[theme], logos),
             f"whoami-{theme}.svg": whoami(theme),
             f"radar-{theme}.svg": radar(SKILLS[0], SKILLS[1], theme),
             f"radar-langs-{theme}.svg": radar(LANGS[0], LANGS[1], theme, size=340, values=True),
