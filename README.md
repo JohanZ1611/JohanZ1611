@@ -36,50 +36,50 @@
 
 ## `$ cat tech-stack.yaml`
 
-<table border="1" cellpadding="14">
+<table border="1" cellpadding="14" bgcolor="#f1f5f9">
   <thead>
     <tr>
-      <th colspan="2" align="left"><code>johan@homelab:~$ cat tech-stack.yaml</code></th>
+      <th colspan="2" align="left"><code>johan:~$ cat tech-stack.yaml</code></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td width="50%" valign="top"><code>├─ ◈ frontend:</code><br><br>
-        <img src="https://skillicons.dev/icons?i=astro,react,ts,js,tailwind,html,css" alt="Astro, React, TypeScript, JavaScript, Tailwind, HTML y CSS"><br>
-        <sub><code>Astro · React · TypeScript · JavaScript · Tailwind · HTML · CSS</code></sub>
+      <td width="50%" valign="top"><code>├─ ☁ cloud_infrastructure:</code><br><br>
+        <img src="https://skillicons.dev/icons?i=aws,azure,linux,cloudflare" alt="AWS, Azure, Linux y Cloudflare"><br>
+        <sub><code>AWS (Lambda · S3 · SQS · EventBridge · ECR) · Azure · Linux · Cloudflare</code></sub>
       </td>
-      <td width="50%" valign="top"><code>├─ ⚙ backend_apis:</code><br><br>
-        <img src="https://skillicons.dev/icons?i=python,fastapi,nodejs,express,prisma" alt="Python, FastAPI, Node.js, Express y Prisma"><br>
-        <sub><code>Python · FastAPI · Node.js · Express · Prisma</code></sub>
-      </td>
-    </tr>
-    <tr>
-      <td valign="top"><code>├─ ▣ databases:</code><br><br>
-        <img src="https://skillicons.dev/icons?i=postgres,supabase,mongodb,mysql" alt="PostgreSQL, Supabase, MongoDB y MySQL"><br>
-        <sub><code>PostgreSQL · Supabase · MongoDB · MySQL</code></sub>
-      </td>
-      <td valign="top"><code>├─ ▢ mobile:</code><br><br>
-        <img src="https://cdn.simpleicons.org/expo/58A6FF" height="48" alt="Expo">
-        <img src="https://skillicons.dev/icons?i=react,kotlin,androidstudio" alt="React Native, Kotlin y Android Studio"><br>
-        <sub><code>Expo · React Native · Kotlin · Android TV</code></sub>
+      <td width="50%" valign="top"><code>├─ ▣ databases_messaging:</code><br><br>
+        <img src="https://skillicons.dev/icons?i=mysql,postgres,mongodb,supabase,firebase,prisma" alt="MySQL, PostgreSQL, MongoDB, Supabase, Firebase y Prisma"><br>
+        <sub><code>MySQL (RDS) · PostgreSQL · MongoDB · Supabase · Firebase · Prisma</code></sub>
       </td>
     </tr>
     <tr>
-      <td valign="top"><code>├─ ☁ devops_tools:</code><br><br>
-        <img src="https://skillicons.dev/icons?i=docker,cloudflare,linux,git,github,githubactions,vscode" alt="Docker, Cloudflare, Linux, Git, GitHub, GitHub Actions y VS Code"><br>
-        <sub><code>Docker · Cloudflare · Linux · Git · GitHub · Actions · VS Code</code></sub>
+      <td valign="top"><code>├─ ⚙ containers_dev_tools:</code><br><br>
+        <img src="https://skillicons.dev/icons?i=docker,git,github,githubactions,bash,vscode,postman,sentry" alt="Docker, Git, GitHub, GitHub Actions, Bash, VS Code, Postman y Sentry"><br>
+        <sub><code>Docker · Git · GitHub · GitHub Actions · Bash · VS Code · Postman/Bruno · Sentry</code></sub>
       </td>
-      <td valign="top"><code>╰─ ✦ ai_design_motion:</code><br><br>
-        <img src="https://cdn.simpleicons.org/googlegemini/4285F4" height="48" alt="Gemini">
-        <img src="https://cdn.simpleicons.org/gsap/0AE448" height="48" alt="GSAP">
-        <img src="https://skillicons.dev/icons?i=sentry,figma" alt="Sentry y Figma"><br>
-        <sub><code>Gemini · GSAP · Sentry · Figma</code></sub>
+      <td valign="top"><code>├─ ◉ data_scraping_ai:</code><br><br>
+        <img src="https://skillicons.dev/icons?i=python,fastapi,nodejs" alt="Python, FastAPI y Node.js">
+        <img src="https://cdn.simpleicons.org/googlegemini/2563eb?viewbox=auto" height="48" alt="Google Gemini"><br>
+        <sub><code>Python · FastAPI · Puppeteer · BeautifulSoup · ETL · Google Gemini</code></sub>
+      </td>
+    </tr>
+    <tr>
+      <td valign="top"><code>├─ ✦ languages_frameworks:</code><br><br>
+        <img src="https://skillicons.dev/icons?i=nodejs,javascript,typescript,python,express,react,nextjs,java,kotlin" alt="Node.js, JavaScript, TypeScript, Python, Express, React, Next.js, Java y Kotlin"><br>
+        <sub><code>Node.js · JavaScript · TypeScript · Python · SQL · Express · React · Next.js · Java · Kotlin</code></sub>
+      </td>
+      <td valign="top"><code>╰─ ⌁ mobile_frontend_3d:</code><br><br>
+        <img src="https://skillicons.dev/icons?i=react,astro,redux,tailwind,bootstrap,mui,androidstudio,figma,blender" alt="React Native, Astro, Redux, Tailwind, Bootstrap, MUI, Android Studio, Figma y Blender">
+        <img src="https://cdn.simpleicons.org/expo/2563eb?viewbox=auto" height="48" alt="Expo">
+        <img src="https://cdn.simpleicons.org/gsap/0AE448?viewbox=auto" height="48" alt="GSAP"><br>
+        <sub><code>React Native · Expo · Astro · Redux · Tailwind · Android Studio · Figma · Blender · GSAP</code></sub>
       </td>
     </tr>
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="2"><code>status: shipping&nbsp;&nbsp;·&nbsp;&nbsp;environment: production</code></td>
+      <td colspan="2"><code>status: ready&nbsp;&nbsp;·&nbsp;&nbsp;environment: production</code></td>
     </tr>
   </tfoot>
 </table>
