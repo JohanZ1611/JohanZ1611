@@ -33,6 +33,7 @@ PROFILE = [
     (0, "profile", ""),
     (1, "subject", "Johan Zuluaga"),
     (1, "role", "Full-Stack Developer"),
+    (1, "origin", "San Luis, Antioquia, Colombia"),
     (1, "focus", "APIs · Apps móviles · Web"),
     (1, "status", "De la idea al deploy"),
     (1, "toolchain", "Astro · React Native · FastAPI"),
@@ -46,7 +47,6 @@ PROFILE = [
     (1, "linkedin", "/in/johan-zuluaga-870343257"),
     (1, "github", "JohanZ1611"),
     (1, "email", "johan16zulu@gmail.com"),
-    (1, "ai", "Gemini · Claude Code"),
 ]
 
 SKILLS = ("Full-Stack Skill Radar", [
@@ -303,7 +303,7 @@ def whoami(theme: str) -> str:
         T(48, 143, "johan_zuluaga", soft, 18), T(196, 143, "—", t["muted"], 18),
         T(221, 143, "Full-Stack Developer", t["warm"], 18),
         f'<path d="M48 166H604" stroke="{t["line"]}"/>',
-        T(48, 196, "context:", t["muted"]), T(166, 196, "6 proyectos propios · idea → deploy", t["dots"]),
+        T(48, 196, "context:", t["muted"]), T(166, 196, "San Luis, Antioquia · Colombia", t["dots"]),
         T(48, 225, "mission:", t["muted"]), T(166, 225, "software que funcione desde el día uno", t["chrome"]),
         T(48, 267, "❯ ls expertise/", t["accent"], 20, True),
         T(48, 299, "web/", t["dots"], 16), T(190, 299, "Astro · React · TypeScript · Tailwind", soft, 16),

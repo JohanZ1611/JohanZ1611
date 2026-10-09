@@ -126,5 +126,5 @@
 <br>
 
 <div align="center">
-<sub>Hecho con 💙 y mucho código · @JohanZ1611</sub>
+<sub>Hecho con 💙 y mucho código desde San Luis, Antioquia, Colombia · @JohanZ1611</sub>
 </div>
