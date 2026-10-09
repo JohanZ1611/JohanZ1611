@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import html
+from collections import deque
 import math
 from pathlib import Path
 
@@ -104,8 +105,23 @@ def default_ink() -> np.ndarray:
     return mask * np.clip(0.35 + 0.65 * light, 0, 1)
 
 
-def image_ink(path: Path, invert: bool) -> np.ndarray:
-    """Dots where the subject is: dark pixels by default, light ones with --invert."""
+def edge_connected(mask: np.ndarray) -> np.ndarray:
+    """True cells of ``mask`` reachable from the image border (the background)."""
+    out = np.zeros(mask.shape, bool)
+    h, w = mask.shape
+    queue = deque([(y, x) for y in range(h) for x in (0, w - 1)] + [(y, x) for x in range(w) for y in (0, h - 1)])
+    while queue:
+        y, x = queue.popleft()
+        if 0 <= y < h and 0 <= x < w and mask[y, x] and not out[y, x]:
+            out[y, x] = True
+            queue.extend(((y - 1, x), (y + 1, x), (y, x - 1), (y, x + 1)))
+    return out
+
+
+def image_inks(path: Path, invert: bool) -> dict[str, np.ndarray]:
+    """Per-theme ink so the photo reads like a photo in both modes: shadows are
+    dots on the light banner, highlights are dots on the dark one. The flat
+    background (white, or black with --invert) never gets dots."""
     src = Image.open(path).convert("RGBA")
     w, h = src.size
     crop_w = min(w, int(h * GRID_W / GRID_H))
@@ -116,8 +132,13 @@ def image_ink(path: Path, invert: bool) -> np.ndarray:
     bg.alpha_composite(src)
     gray = ImageOps.autocontrast(ImageOps.grayscale(bg.convert("RGB")), cutoff=1)
     gray = ImageEnhance.Contrast(gray).enhance(1.3).filter(ImageFilter.UnsharpMask(2, 150, 1))
-    ink = np.asarray(gray, np.float32) / 255
-    return ink if invert else 1 - ink
+    lum = np.asarray(gray, np.float32) / 255
+    subject = ~edge_connected(lum < 0.08 if invert else lum > 0.92)
+    # Cap at .85 so solid areas (a black shirt) keep a dithered texture.
+    return {
+        "light": np.clip(1 - lum, 0, 0.85) * subject,
+        "dark": np.clip(lum, 0, 0.85) * subject,
+    }
 
 
 def floyd_steinberg(ink: np.ndarray) -> np.ndarray:
@@ -154,7 +175,7 @@ def runs_path(points: list[tuple[int, int]]) -> str:
         while i < len(pts) and pts[i][1] == y and pts[i][0] == x1 + 1:
             x1 = pts[i][0]
             i += 1
-        out.append(f"M{x0} {y}h{x1 - x0 + 1}")
+        out.append(f"M{x0} {y}.5h{x1 - x0 + 1}")  # .5 = stroke centred on the pixel row
     return "".join(out)
 
 
@@ -369,14 +390,14 @@ def main() -> None:
     ap.add_argument("--invert", action="store_true", help="use when the subject is light on a dark background")
     args = ap.parse_args()
 
-    ink = image_ink(args.image, args.invert) if args.image else default_ink()
-    dots = floyd_steinberg(ink)
-    assert dots.any(), "the image produced no dots; try --invert"
+    inks = image_inks(args.image, args.invert) if args.image else dict.fromkeys(THEMES, default_ink())
+    dots = {theme: floyd_steinberg(ink) for theme, ink in inks.items()}
+    assert all(d.any() for d in dots.values()), "the image produced no dots; try --invert"
 
     ASSETS.mkdir(exist_ok=True)
     for theme in THEMES:
         out = {
-            f"banner-{theme}.v9.svg": banner(theme, dots),
+            f"banner-{theme}.v9.svg": banner(theme, dots[theme]),
             f"whoami-{theme}.svg": whoami(theme),
             f"radar-{theme}.svg": radar(SKILLS[0], SKILLS[1], theme),
             f"radar-langs-{theme}.svg": radar(LANGS[0], LANGS[1], theme, size=340, values=True),
