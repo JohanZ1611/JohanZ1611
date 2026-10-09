@@ -7,6 +7,9 @@ Run from the repository root:
     python scripts/generate_assets.py --image foto.png       # your own image
     python scripts/generate_assets.py --image foto.png --invert   # light subject on dark bg
 
+VISUAL.MAP loops: image -> each logo in LOGOS (assets/source/logos/<name>.png,
+black silhouette on transparent) -> image. Missing logo files are skipped.
+
 Writes (dark + light each): banner-*.v9.svg, whoami-*.svg, radar-*.svg, radar-langs-*.svg
 Texts live in PROFILE, SKILLS, LANGS and whoami(); radar values are self-rated 0-100.
 """
@@ -27,6 +30,10 @@ ASSETS = ROOT / "assets"
 SEED = 1611
 MONO = "ui-monospace,SFMono-Regular,Menlo,Consolas,monospace"
 SANS = "ui-sans-serif,-apple-system,Segoe UI,Helvetica,Arial,sans-serif"
+LOGO_DIR = ASSETS / "source" / "logos"
+LOGOS = ("astro", "react", "python", "aws")
+LOOP_BEGIN, PORTRAIT_HOLD, MOVE, LOGO_HOLD = 2.4, 3.0, 1.3, 3.0  # seconds
+TRAVELLERS = 600
 
 # (indent, key, value) rows shown in the banner's vim profile.yml panel.
 PROFILE = [
@@ -164,6 +171,25 @@ def floyd_steinberg(ink: np.ndarray) -> np.ndarray:
     return out
 
 
+def logo_mask(path: Path) -> np.ndarray:
+    """Silhouette fitted into a 230px box, centred on the 300x340 grid."""
+    icon = Image.open(path).convert("RGBA")
+    icon.thumbnail((230, 230), Image.Resampling.LANCZOS)
+    canvas = Image.new("RGBA", (GRID_W, GRID_H), (0, 0, 0, 0))
+    canvas.alpha_composite(icon, ((GRID_W - icon.width) // 2, (GRID_H - icon.height) // 2))
+    return np.asarray(canvas.getchannel("A")) > 127
+
+
+def ordered(points: np.ndarray) -> np.ndarray:
+    """Order points in y-bands, then x within each band. Travellers pair up by
+    index across frames, so this keeps each dot moving to a nearby spot."""
+    # ponytail: band sort instead of optimal transport (scipy); swap in
+    # linear_sum_assignment if the morph ever looks tangled.
+    idx = np.argsort(points[:, 1], kind="stable")
+    bands = [b[np.argsort(points[b, 0], kind="stable")] for b in np.array_split(idx, 28)]
+    return points[np.concatenate(bands)]
+
+
 def runs_path(points: list[tuple[int, int]]) -> str:
     """Merge horizontally adjacent 1px dots into short path runs."""
     pts = sorted(points, key=lambda p: (p[1], p[0]))
@@ -188,7 +214,7 @@ def txt(x, y, s, fill, size=13, extra=""):
     return f'<text x="{x}" y="{y}" fill="{fill}" font-family="{MONO}" font-size="{size}" {extra}>{s}</text>'
 
 
-def banner(theme: str, dots: np.ndarray) -> str:
+def banner(theme: str, dots: np.ndarray, logos: list[np.ndarray]) -> str:
     t = THEMES[theme]
     ox, oy = 94, 161  # centre the 300x340 grid in the 390x414 frame
     ys, xs = np.nonzero(dots)
@@ -221,6 +247,15 @@ def banner(theme: str, dots: np.ndarray) -> str:
         f'fill="none" stroke="{t["chrome"]}" opacity=".55"/>',
         '<g clip-path="url(#vclip)" shape-rendering="crispEdges">',
     ]
+    # Portrait layer: fades out while the logos play (loop starts after the intro).
+    if logos:
+        times = [0.0, PORTRAIT_HOLD]
+        for _ in logos:
+            times += [times[-1] + MOVE, times[-1] + MOVE + LOGO_HOLD]
+        times.append(times[-1] + MOVE)
+        loop = f'begin="{LOOP_BEGIN}s" dur="{times[-1]:g}s" repeatCount="indefinite" '                f'keyTimes="{";".join(f"{v / times[-1]:.4f}" for v in times)}"'
+        fade = ["1", "1"] + ["0"] * (len(times) - 3) + ["1"]
+        p.append(f'<g><animate attributeName="opacity" {loop} values="{";".join(fade)}"/>')
     # Scattered intro: interleaved dot groups fade in once, then stay.
     for g in range(48):
         sel = groups == g
@@ -228,6 +263,28 @@ def banner(theme: str, dots: np.ndarray) -> str:
         if pts:
             p.append(f'<path d="{runs_path(pts)}" fill="none" stroke="{t["dots"]}" stroke-width="1" opacity="0">'
                      f'<animate attributeName="opacity" begin="{starts[g]:.2f}s" dur=".8s" values="0;.92" fill="freeze"/></path>')
+    if logos:
+        p.append("</g>")
+        portrait = np.column_stack((xs, ys)).astype(float)
+        frames = [ordered(portrait[rng.choice(len(portrait), TRAVELLERS, replace=False)])] * 2
+        for k, mask in enumerate(logos):
+            ly, lx = np.nonzero(mask)
+            pts = np.column_stack((lx, ly)).astype(float)
+            frames += [ordered(pts[rng.choice(len(pts), TRAVELLERS)])] * 2
+            # Dense dithered logo takes over while the travellers hold still.
+            hy, hx = np.nonzero(floyd_steinberg(mask * 0.6))
+            show = ["0"] * len(times)
+            show[2 + 2 * k] = show[3 + 2 * k] = ".9"
+            p.append(f'<path d="{runs_path([(int(x) + ox, int(y) + oy) for x, y in zip(hx, hy)])}" fill="none" '
+                     f'stroke="{t["dots"]}" stroke-width="1" opacity="0">'
+                     f'<animate attributeName="opacity" {loop} values="{";".join(show)}"/></path>')
+        frames.append(frames[0])
+        fly = ";".join(["0", "0"] + ["1"] * (len(times) - 3) + ["0"])
+        for i in range(TRAVELLERS):
+            pos = ";".join(f"{f[i, 0] + ox:g} {f[i, 1] + oy:g}" for f in frames)
+            p.append(f'<path d="M0 0h1.4v1.4h-1.4z" fill="{t["dots"]}" opacity="0">'
+                     f'<animateTransform attributeName="transform" type="translate" {loop} values="{pos}"/>'
+                     f'<animate attributeName="opacity" {loop} values="{fly}"/></path>')
     # Looping scanline over the map.
     p.append(f'<rect x="49" y="0" width="390" height="30" fill="url(#scan)">'
              '<animate attributeName="y" values="78;540" dur="5s" begin="2.4s" repeatCount="indefinite"/></rect></g>')
@@ -393,11 +450,13 @@ def main() -> None:
     inks = image_inks(args.image, args.invert) if args.image else dict.fromkeys(THEMES, default_ink())
     dots = {theme: floyd_steinberg(ink) for theme, ink in inks.items()}
     assert all(d.any() for d in dots.values()), "the image produced no dots; try --invert"
+    logos = [logo_mask(LOGO_DIR / f"{n}.png") for n in LOGOS if (LOGO_DIR / f"{n}.png").exists()]
+    print(f"VISUAL.MAP loop: image -> {len(logos)} logos")
 
     ASSETS.mkdir(exist_ok=True)
     for theme in THEMES:
         out = {
-            f"banner-{theme}.v9.svg": banner(theme, dots[theme]),
+            f"banner-{theme}.v9.svg": banner(theme, dots[theme], logos),
             f"whoami-{theme}.svg": whoami(theme),
             f"radar-{theme}.svg": radar(SKILLS[0], SKILLS[1], theme),
             f"radar-langs-{theme}.svg": radar(LANGS[0], LANGS[1], theme, size=340, values=True),
